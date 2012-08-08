@@ -2,3 +2,7 @@ watch('.*\.js'){
     system('node test.js')
     system('echo ==========')
 }
+
+watch('test/.*test\.js') {
+    system('mocha')
+}
