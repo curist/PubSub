@@ -40,6 +40,7 @@ describe('PubSub', function(){
         some_uniq_value += 1;
       }
       PubSub.sub('the_answer', foo);
+      PubSub.pub('the_answer');
       assert.equal(42, some_uniq_value);
     })
   }),
