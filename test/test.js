@@ -80,6 +80,18 @@ describe('PubSub', function(){
       PubSub.pub('event_foo');
       assert.equal(1, b1.val());
 
+    }),
+    it('should allow unsubscribing w/o instance but only callback', function(){
+      var some_uniq_value = 41;
+      var foo = function(){
+        some_uniq_value += 1;
+      }
+      PubSub.sub('the_answer', foo);
+      PubSub.pub('the_answer');
+      assert.equal(42, some_uniq_value);
+      PubSub.unsub('the_answer', foo);
+      PubSub.pub('the_answer');
+      assert.equal(42, some_uniq_value);
     })
   })
 })
