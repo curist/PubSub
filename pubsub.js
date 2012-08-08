@@ -2,13 +2,14 @@
   var pub_sub = this.PubSub = {};
   var events = {};
 
+  // since we allow subscriber as optional argument, will preprocess args here
   var process_arguments = function(subscriber, handler) {
     var args = {
       subscriber: subscriber
     , handler:    handler
     };
 
-    if(args.handler === undefined) {
+    if(args.handler === undefined && typeof args.subscriber === 'function') {
       args.handler = args.subscriber;
       args.subscriber = 'anonymous';
     } else if(typeof args.handler !== 'function') {

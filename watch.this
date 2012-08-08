@@ -1,7 +1,0 @@
-watch('.*\.js'){
-    system('mocha')
-}
-
-watch('test/.*test\.js') {
-    system('mocha')
-}

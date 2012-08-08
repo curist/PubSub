@@ -69,6 +69,16 @@ describe('PubSub', function(){
       PubSub.pub('event_foo');
       assert.equal(2, b.val());
     }),
+    it('should allow unsubscribe with only callback', function(){
+      var some_uniq_value = 41;
+      var foo = function(){
+        some_uniq_value += 1;
+      }
+      PubSub.sub('the_answer', foo);
+      PubSub.unsub('the_answer', foo);
+      PubSub.pub('the_answer');
+      assert.equal(41, some_uniq_value);
+    }),
     it('should not affect other subscriber when some unsubscribed', function(){
       var b1 = new ClassB();
       var b2 = new ClassB();
