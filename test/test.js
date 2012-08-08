@@ -14,24 +14,34 @@ var ClassB = function(){
 };
 
 describe('PubSub', function(){
-  it('should run subscribed method', function(){
-    var b = new ClassB();
-    assert.equal(0, b.val());
-    PubSub.sub('event_foo', b, 'increment');
-    PubSub.pub('event_foo');
-    assert.equal(1, b.val());
-    PubSub.pub('event_foo');
-    assert.equal(2, b.val());
-  }),
-  it('shouldnt run unsubscribed instance\'s method',function(){
-    var b1 = new ClassB();
-    var b2 = new ClassB();
-    assert.equal(0, b1.val());
-    assert.equal(0, b2.val());
-    PubSub.sub('event_foo', b1, 'increment');
-    PubSub.pub('event_foo');
-    assert.equal(1, b1.val());
-    assert.equal(0, b2.val());
+  describe('subscribtion', function(){
+    it('should run subscribed method', function(){
+      var b = new ClassB();
+      assert.equal(0, b.val());
+      PubSub.sub('event_foo', b, 'increment');
+      PubSub.pub('event_foo');
+      assert.equal(1, b.val());
+      PubSub.pub('event_foo');
+      assert.equal(2, b.val());
+    }),
+    it('shouldnt run method without subscribtion',function(){
+      var b1 = new ClassB();
+      var b2 = new ClassB();
+      assert.equal(0, b1.val());
+      assert.equal(0, b2.val());
+      PubSub.sub('event_foo', b1, 'increment');
+      PubSub.pub('event_foo');
+      assert.equal(1, b1.val());
+      assert.equal(0, b2.val());
+    }),
+    it('should allow subscribing w/o instance but only callback', function(){
+      var some_uniq_value = 41;
+      var foo = function(){
+        some_uniq_value += 1;
+      }
+      PubSub.sub('the_answer', foo);
+      assert.equal(42, some_uniq_value);
+    })
   }),
   describe('unsubscribe', function(){
     it('should allow unsubscribe with instance name', function(){
