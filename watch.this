@@ -1,0 +1,4 @@
+watch('.*\.js'){
+    system('node test.js')
+    system('echo ==========')
+}
