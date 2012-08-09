@@ -1,5 +1,5 @@
-require('../pubsub.js')
-var assert = require("assert")
+var PubSub = require("../pubsub")
+  , assert = require("assert");
 
 var ClassB = function(){
   var foo = {};
