@@ -29,10 +29,9 @@
   };
 
   pub_sub.pub = function(event, args) {
-    for(var i = 0; i < events[event].length; i++) {
-      var el = events[event][i];
+    events[event].forEach(function(el){
       (el.handler).apply(el.subscriber, args || []);
-    }
+    });
   };
 
   pub_sub.sub = function(event, subscriber, handler) {
@@ -53,14 +52,13 @@
     if(!args)return;
 
     var subscribers = [];
-    for(var i = 0; i < events[event].length; i++) {
-      var el = events[event][i];
+    events[event].forEach(function(el){
       if(args.subscriber !== el.subscriber) {
         subscribers.push(el);
       } else if(args.handler && args.handler !== el.handler){
         subscribers.push(el);
       }
-    }
+    });
     events[event] = subscribers;
   };
 
