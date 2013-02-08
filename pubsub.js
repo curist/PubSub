@@ -12,23 +12,33 @@
     , handler:    handler
     };
 
-    if(args.handler === undefined && typeof args.subscriber === 'function') {
-      args.handler = args.subscriber;
-      args.subscriber = 'anonymous';
-    } else if(typeof args.handler !== 'function') {
-      if(!(args.subscriber.hasOwnProperty(args.handler))){
-        return;
+    if(args.subscriber === undefined && args.handler === undefined) {
+      // no additional args
+      args = undefined;
+    } else if(args.subscriber !== undefined && args.handler !== undefined) {
+      // with subscriber and handler
+      if(typeof args.handler === 'string') {
+        args.handler = args.subscriber[args.handler];
+      } else {
+        // pass
       }
-      if(typeof args.subscriber[args.handler] !== 'function'){
-        return;
+    } else {
+      if(Object.keys(args.subscriber).length > 0) {
+        // with subscriber
+        args.handler = args.subscriber[args.handler];
+      } else {
+        // with handler
+        args.handler = args.subscriber;
+        args.subscriber = 'anonymous';
       }
-      args.handler = args.subscriber[args.handler];
     }
-
     return args;
   };
 
   pub_sub.pub = function(event, args) {
+    if (!events.hasOwnProperty(event)) {
+      events[event] = [];
+    }
     events[event].forEach(function(el){
       (el.handler).apply(el.subscriber, args || []);
     });
@@ -36,7 +46,6 @@
 
   pub_sub.sub = function(event, subscriber, handler) {
     var args = process_arguments(subscriber, handler);
-    if(!args)return;
 
     if (!events.hasOwnProperty(event)) {
       events[event] = [];
@@ -49,13 +58,21 @@
 
   pub_sub.unsub = function(event, subscriber, handler) {
     var args = process_arguments(subscriber, handler);
-    if(!args)return;
+    if(!args) {
+      // only event name passed in
+      delete events[event];
+      return;
+    }
+    if(handler !== undefined && args.handler === undefined) {
+      // handler not found...
+      return;
+    }
 
     var subscribers = [];
     events[event].forEach(function(el){
       if(args.subscriber !== el.subscriber) {
         subscribers.push(el);
-      } else if(args.handler && args.handler !== el.handler){
+      } else if(args.handler && (args.handler !== el.handler)) {
         subscribers.push(el);
       }
     });

@@ -1,3 +1,4 @@
+/*global expect: true*/
 var PubSub = require("../pubsub")
   , chai   = require("chai");
 
@@ -62,12 +63,24 @@ describe('PubSub', function(){
     });
   }),
   describe('unsubscribe', function(){
+    it('should allow unsubscribe with only event name', function() {
+      var b = new ClassB();
+
+      PubSub.sub('okay', b.increment);
+      PubSub.pub('okay');
+      expect(b.val()).to.equal(1);
+
+      PubSub.unsub('okay');
+      PubSub.pub('okay');
+      expect(b.val()).to.equal(1);
+    }),
     it('should allow unsubscribe with instance name', function(){
       var b = new ClassB();
       PubSub.sub('event_foo', b, 'increment');
       PubSub.pub('event_foo');
       expect(b.val()).to.equal(1);
       PubSub.unsub('event_foo', b);
+      PubSub.pub('event_foo');
       expect(b.val()).to.equal(1);
     }),
     it('should allow unsubscribe instance with handle name', function(){
@@ -97,16 +110,6 @@ describe('PubSub', function(){
       PubSub.unsub('my_event', b, b.increment);
       PubSub.pub('my_event');
       expect(b.val()).to.equal(1);
-    }),
-    it('should allow unsubscribe with only callback', function(){
-      var some_uniq_value = 41;
-      var foo = function(){
-        some_uniq_value += 1;
-      };
-      PubSub.sub('the_answer', foo);
-      PubSub.unsub('the_answer', foo);
-      PubSub.pub('the_answer');
-      expect(some_uniq_value).to.equal(41);
     }),
     it('should not affect other subscriber when some unsubscribed', function(){
       var b1 = new ClassB();
