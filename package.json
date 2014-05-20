@@ -1,6 +1,6 @@
 {
   "name": "pbsb",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Yet another PubSub Library.",
   "main": "pubsub.js",
   "directories": {
