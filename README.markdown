@@ -15,25 +15,25 @@ Usage
   
   Example
 
-```javascript
-var ClassA = function(){
-  return {
-    callback_function: function(){
-      return 'foobar';
+    ```javascript
+    var ClassA = function(){
+      return {
+        callback_function: function(){
+          return 'foobar';
+        }
+      }
     }
-  }
-}
-var a = new A();
-PbSb.sub('the_event', a, 'callback_function');
-// or
-PbSb.sub('my_very_first_event', a, a.callback_function);
-```
+    var a = new A();
+    PbSb.sub('the_event', a, 'callback_function');
+    // or
+    PbSb.sub('my_very_first_event', a, a.callback_function);
+    ```
 
   *subscriber* is optional, so you may calling sub like this
 
-```javascript
-PbSb.sub('my_event', function(){...})
-```
+    ```javascript
+    PbSb.sub('my_event', function(){...})
+    ```
 
 * PbSb.unsub(*event*, *subscriber*, *handler*)
   * *event*
@@ -57,11 +57,11 @@ PbSb.sub('my_event', function(){...})
 
   Examples
 
-```javascript
-PbSb.unsub('event1', a, 'foo');
-PbSb.unsub('eventB', a);
-PbSb.unsub('EventX', some_method);
-```
+    ```javascript
+    PbSb.unsub('event1', a, 'foo');
+    PbSb.unsub('eventB', a);
+    PbSb.unsub('EventX', some_method);
+    ```
 
 * PbSb.pub(*event*, *args*)
   * *event*
@@ -74,10 +74,10 @@ PbSb.unsub('EventX', some_method);
 
   Examples
 
-```javascript
-PbSb.pub('da_event');
-PbSb.pub('fruits_coming', ['apple', 'orange']);
-```
+    ```javascript
+    PbSb.pub('da_event');
+    PbSb.pub('fruits_coming', ['apple', 'orange']);
+    ```
 
 To Run Tests
 ===============================================================================
