@@ -2,7 +2,7 @@
 var PubSub = require("../pubsub")
   , chai   = require("chai");
 
-chai.Assertion.includeStack = true;
+chai.config.includeStack = true;
 Error.stackTraceLimit = 3;
 
 var expect = chai.expect;

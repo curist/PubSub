@@ -1,4 +1,5 @@
-(function(undefined){
+(function(){
+  var undef;
   var pub_sub = {};
   if(!(module && module.exports)) {
     this.PubSub = pub_sub;
@@ -12,10 +13,10 @@
     , handler:    handler
     };
 
-    if(args.subscriber === undefined && args.handler === undefined) {
+    if(args.subscriber === undef && args.handler === undef) {
       // no additional args
-      args = undefined;
-    } else if(args.subscriber !== undefined && args.handler !== undefined) {
+      args = undef;
+    } else if(args.subscriber !== undef && args.handler !== undef) {
       // with subscriber and handler
       if(typeof args.handler === 'string') {
         args.handler = args.subscriber[args.handler];
@@ -63,7 +64,7 @@
       delete events[event];
       return;
     }
-    if(handler !== undefined && args.handler === undefined) {
+    if(handler !== undef && args.handler === undef) {
       // handler not found...
       return;
     }
@@ -81,9 +82,7 @@
 
   // export methods if nodejs environment detected
   if(module && module.exports) {
-    module.exports.sub = pub_sub.sub;
-    module.exports.pub = pub_sub.pub;
-    module.exports.unsub = pub_sub.unsub;
+    module.exports = pub_sub;
   }
 
   return pub_sub;

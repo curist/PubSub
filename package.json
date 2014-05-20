@@ -1,0 +1,28 @@
+{
+  "name": "PbSb",
+  "version": "0.5.0",
+  "description": "Yet another PubSub Library.",
+  "main": "pubsub.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/curist/PubSub.git"
+  },
+  "keywords": [
+    "pubsub"
+  ],
+  "author": "curist",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/curist/PubSub/issues"
+  },
+  "homepage": "https://github.com/curist/PubSub",
+  "devDependencies": {
+    "chai": "^1.9.1"
+  }
+}
